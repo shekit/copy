@@ -1,0 +1,17 @@
+<head>
+  <title>MOBILE FRONTEND</title>
+</head>
+
+<body>
+  <h1>MOBILE FRONTEND</h1>
+
+  {{> list}}
+</body>
+
+<template name="list">
+  <ul>
+  {{#each list}}
+  	<li>{{name}} - {{created}}</li>
+  {{/each}}
+  </ul>
+</template>
