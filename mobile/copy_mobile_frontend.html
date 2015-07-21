@@ -9,9 +9,12 @@
 </body>
 
 <template name="list">
-  <ul>
-  {{#each list}}
-  	<li>{{name}} - {{created}}</li>
-  {{/each}}
-  </ul>
+	{{#if list}}
+		<textarea name="copyText">{{list.content}}</textarea>
+	{{/if }}
+
+	<form id="paste">
+	  	<textarea name="content" placeholder="paste text here"></textarea>
+	  	<input type="submit" value="paste">
+	</form>
 </template>

@@ -1,19 +1,43 @@
 <head>
-  <title>DESKTOP FRONTEND</title>
+	<title>Desktop > Mobile</title>
 </head>
 
-<body>
-  <h1>DESKTOP FRONTEND</h1>
-
-  {{> list}}
-</body>
+<template name="main">
+	<div class="container">
+  	<div class="row text-center">
+  		<h1>Desktop > Mobile</h1>
+  		<br><br>
+  		{{> yield}}
+  	</div>
+  </div>
+</template>
 
 <template name="list">
-  <ul>
+	<div class="col-md-3"></div>
+	<div class="col-sm-12 col-md-6 text-center">
+		{{#if list}}
+			<textarea class="form-control pasted-from" name="copyText">{{list.content}}</textarea>
+		{{/if }}
 
-  	<li>{{list.name}} - {{list.created}}</li>
+		<form id="paste">
+	  		<textarea class="form-control paste-to" name="content" placeholder="Paste Text Here"></textarea>
 
-  </ul>
+	  		<input class="btn btn-lg btn-block btn-success paste-btn" type="submit" value="Send to Phone">
+		</form>
+		<br>
+		<a href="{{pathFor route='archive'}}" class="btn btn-lg btn-block btn-default paste-btn">Paste History from Mobile</a>
+	</div>
+	<div class="col-md-3"></div>
+</template>
 
-  <a href="#" class="add">Add Clip</a>
+<template name="archive">
+	<div class="col-md-3"></div>
+	<div class="col-sm-12 col-md-6">
+		<a href="{{pathFor route='home'}}" class="btn btn-lg btn-block btn-default paste-btn">Back</a>
+		<br>
+		{{#each archive}}
+			<textarea class="form-control pasted-from" name="archive">{{content}}</textarea>
+		{{/each }}
+	</div>
+	<div class="col-md-3"></div>
 </template>

@@ -1,13 +1,15 @@
 Clips = new Mongo.Collection('clips')
 
 if (Meteor.isClient) {
-    Template.create.events({
-      'click .create':function(event){
-        event.preventDefault();
+	Template.registerHelper('formatDate', function(date){
+		return moment(date).format('DD-MM-YYYY');
+	});
 
-        Meteor.call('addClip');
-      }
-    })
+	Template.list.helpers({
+		'list': function(){
+			return Clips.find().fetch()
+		}
+	});
 }
 
 if (Meteor.isServer) {
@@ -15,15 +17,22 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 
-  Meteor.publish('remote-clips', function(){
-    return Clips.find();
-  })
+  Meteor.publish('remote-desktop-clips', function(){
+    return Clips.find({fromDesktop:false}, {sort:{created:-1}, limit:10});
+  });
+
+  Meteor.publish('remote-mobile-clips', function(){
+  	return Clips.find({fromDesktop:true}, {sort:{created:-1}, limit:10});
+  });
 
   Meteor.methods({
-    'addClip': function(){
+
+  	//remote server calls from clients
+    'addClip': function(content, fromDesktop){
 
       Clips.insert({
-          name:"New Copy thing",
+          content:content,
+          fromDesktop: fromDesktop, //boolean value
           created: new Date(),
           user: "abhi"
       });
@@ -33,7 +42,5 @@ if (Meteor.isServer) {
     'returnTopClip': function(){
       return Clips.findOne({},{sort:{created:-1}});
     }
-
-
   })
 }

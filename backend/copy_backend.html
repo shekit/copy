@@ -4,10 +4,14 @@
 
 <body>
   <h1>This is the BACKEND!</h1>
-  {{>create}}
+  {{>list}}
  
 </body>
 
-<template name="create">
-	<a href="#" class="create">Add to Database</a>
+<template name="list">
+	<ul>
+	{{#each list}}
+		<li>{{content}} - {{fromDesktop}} - {{formatDate created}}</li>
+	{{/each}}
+	</ul>
 </template>
