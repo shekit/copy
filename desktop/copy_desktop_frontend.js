@@ -7,7 +7,7 @@ if (Meteor.isClient) {
 
   Template.list.helpers({
     list: function(){
-      return Clips.findOne({fromDesktop:false},{sort:{created:-1}});
+      return Clips.findOne({fromDesktop:false},{sort:{created:-1}}); // not working - should work based on subscription
     }
   });
 
