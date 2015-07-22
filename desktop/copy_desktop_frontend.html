@@ -16,7 +16,7 @@
 	<div class="col-md-3"></div>
 	<div class="col-sm-12 col-md-6 text-center">
 		{{#if list}}
-			<textarea class="form-control pasted-from" name="copyText">{{list.content}}</textarea>
+			<textarea class="form-control pasted-from" name="copyText" readonly="readonly">{{list.content}}</textarea>
 		{{/if }}
 
 		<form id="paste">
@@ -33,7 +33,7 @@
 <template name="archive">
 	<div class="col-md-3"></div>
 	<div class="col-sm-12 col-md-6">
-		<a href="{{pathFor route='home'}}" class="btn btn-lg btn-block btn-default paste-btn">Back</a>
+		<a href="{{pathFor route='home'}}" class="btn btn-lg btn-block btn-default paste-btn">&lt;&nbsp;Back</a>
 		<br>
 		{{#each archive}}
 			<textarea class="form-control pasted-from" name="archive">{{content}}</textarea>

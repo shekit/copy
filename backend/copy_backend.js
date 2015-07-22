@@ -1,28 +1,39 @@
 Clips = new Mongo.Collection('clips')
 
 if (Meteor.isClient) {
+
+	Meteor.subscribe('local');
+
 	Template.registerHelper('formatDate', function(date){
 		return moment(date).format('DD-MM-YYYY');
 	});
 
 	Template.list.helpers({
 		'list': function(){
-			return Clips.find().fetch()
+			return Clips.find();
 		}
 	});
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    // code to run on server at startup
+    // enables cross site scripting allowing clients to access server
+    WebApp.connectHandlers.use(function(req,res,next){
+    	res.setHeader('Access-Control-Allow-Origin','*');
+    	return next();
+    })
   });
 
+  Meteor.publish('local', function(){
+  	return Clips.find({},{sort:{created:-1}});
+  })
+
   Meteor.publish('remote-desktop-clips', function(){
-    return Clips.find({fromDesktop:false}, {sort:{created:-1}, limit:10});
+    return Clips.find({fromDesktop:false}, {sort:{created:-1}, limit:5});
   });
 
   Meteor.publish('remote-mobile-clips', function(){
-  	return Clips.find({fromDesktop:true}, {sort:{created:-1}, limit:10});
+  	return Clips.find({fromDesktop:true}, {sort:{created:-1}, limit:5});
   });
 
   Meteor.methods({

@@ -1,7 +1,7 @@
 
 
 if (Meteor.isClient) {
-  var remote = DDP.connect("http://localhost:3000/");
+  var remote = DDP.connect("http://128.122.6.145:3000/");
   Clips = new Mongo.Collection('clips', remote);
   remote.subscribe('remote-desktop-clips');
 

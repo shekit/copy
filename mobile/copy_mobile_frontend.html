@@ -1,20 +1,60 @@
 <head>
-  <title>MOBILE FRONTEND</title>
+  <title>Mobile > Desktop</title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 </head>
 
-<body>
-  <h1>MOBILE FRONTEND</h1>
+<template name="main">
+	<div class="container-fluid">
+		<div class="row nav">
+			<div class="col-xs-2 text-left">
+				<a class="{{ifRouteIs 'home'}}" href="{{pathFor route='home'}}">
+				<span class="glyphicon glyphicon-menu-left"></span></a>
+			</div>
+			
+			<div class="col-xs-8 text-center">	
+				<h3 class="title">Mobile > Desktop</h3>
+			</div>
 
-  {{> list}}
-</body>
+			<div class="col-xs-2 text-right">
+				<a class="{{ifRouteIs 'archive'}}" href="{{pathFor route='archive'}}"><span class="glyphicon glyphicon-th-list"></span>
+				</a>
+			</div>
+		</div>
+
+		<div class="row">
+			
+				{{> yield}}
+			
+		</div>
+	</div>
+</template>
+
 
 <template name="list">
 	{{#if list}}
-		<textarea name="copyText">{{list.content}}</textarea>
+		<textarea name="copyText" class="form-control pasted-from" readonly="readonly">{{list.content}}</textarea>
 	{{/if }}
 
 	<form id="paste">
-	  	<textarea name="content" placeholder="paste text here"></textarea>
-	  	<input type="submit" value="paste">
+	  	<textarea name="content" class="form-control paste-to" placeholder="Paste Text Here"></textarea>
+	  	<input class="btn btn-lg btn-success btn-block paste-btn" type="submit" value="Send to Desktop">
 	</form>
+</template>
+
+<template name="archive">
+	<table class="table">
+		<tbody>
+		{{#each archive}}
+			<tr>
+				<td class="past">
+					{{content}}
+				</td>
+			</tr>
+		{{/each}}
+		</tbody>
+	</table>
 </template>
